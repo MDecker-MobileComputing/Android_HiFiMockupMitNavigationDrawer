@@ -1,12 +1,15 @@
 package de.mide.android.hifimockup;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -17,13 +20,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import de.mide.android.hifimockup.databinding.ActivityMainBinding;
 
 
+
 public class MainActivity extends AppCompatActivity {
+
+    public static final String TAG4LOGGING = "HiFiMockup";
 
     private AppBarConfiguration _appBarKonfiguration;
     private ActivityMainBinding _binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         _binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -51,13 +58,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
     public boolean onSupportNavigateUp() {
 
         NavController navController =
@@ -66,5 +66,74 @@ public class MainActivity extends AppCompatActivity {
         boolean navigateUpOk = NavigationUI.navigateUp(navController, _appBarKonfiguration);
         return navigateUpOk || super.onSupportNavigateUp();
     }
+
+    /**
+     * "Drei-Punkte-Menü" in der App-Leiste (rechts oben) erzeugen.
+     *
+     * Das Event-Handling für die Einträge wird in der Methode
+     * {@link #onOptionsItemSelected(MenuItem)} implementiert.
+     *
+     * @param menu  Menü-Objekt, zu dem die Einträge hinzugefügt werden sollen.
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    /**
+     * Verarbeitung von Klicks in "Drei-Punkte-Menü".
+     *
+     * @param item  Menu-Item, welches gerade ein Event ausgelöst hat.
+     *
+     * @return Es wird {@code true} zurückgegeben, wenn wir in dieser
+     *          Methode das Ereignis verarbeiten konnten, ansonsten
+     *          der Wert der Super-Methode.
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        final int selectedMenuId = item.getItemId();
+
+        if (selectedMenuId == R.id.action_ueber) {
+
+            zeigeAppVersionDialog();
+            return true;
+
+        } else {
+
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /**
+     * Zeigt einen Dialog mit der aktuellen App-Version an.
+     */
+    private void zeigeAppVersionDialog() {
+
+        String versionnameAusPackageInfo = "???";
+
+        try {
+
+            PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            versionnameAusPackageInfo = packageInfo.versionName;
+
+        } catch ( PackageManager.NameNotFoundException e ) {
+
+            Log.e( TAG4LOGGING, "Fehler beim Ermitteln der App-Version: " + e.getMessage() );
+        }
+
+        String nachricht = "Version der App: " + versionnameAusPackageInfo;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Über diese App");
+        builder.setMessage(nachricht);
+        builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
 
 }
