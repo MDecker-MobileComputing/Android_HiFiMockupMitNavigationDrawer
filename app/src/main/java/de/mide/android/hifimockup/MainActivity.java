@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
         final int selectedMenuId = item.getItemId();
 
-        if (selectedMenuId == R.id.action_ueber) {
+        if (selectedMenuId == R.id.action_version) {
 
             zeigeAppVersionDialog();
             return true;

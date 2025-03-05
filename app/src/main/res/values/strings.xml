@@ -5,7 +5,7 @@
     <string name="nav_header_title">HiFi Mockup</string>
     <string name="nav_header_subtitle">Demo für Navigation Drawer</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_ueber">Über die App</string>
+    <string name="action_version">Version der App</string>
     <string name="action_webseite">Homepage der App aufrufen</string>
 
     <string name="menu_home">Über diese App</string>
