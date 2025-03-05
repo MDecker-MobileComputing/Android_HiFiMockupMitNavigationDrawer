@@ -32,10 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(_binding.appBarMain.toolbar);
 
         DrawerLayout drawer = _binding.drawerLayout;
-        NavigationView navigationView = _binding.navView;
 
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         _appBarKonfiguration =
                 new AppBarConfiguration.Builder(
                         R.id.nav_home,
@@ -45,7 +42,10 @@ public class MainActivity extends AppCompatActivity {
                 .setOpenableLayout(drawer)
                 .build();
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        NavigationView navigationView = _binding.navView;
+
+        NavController navController =
+                Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, _appBarKonfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }
