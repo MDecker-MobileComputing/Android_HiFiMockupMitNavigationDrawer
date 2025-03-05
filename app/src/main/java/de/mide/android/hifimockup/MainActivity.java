@@ -16,51 +16,55 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import de.mide.android.hifimockup.databinding.ActivityMainBinding;
 
+
 public class MainActivity extends AppCompatActivity {
 
-    private AppBarConfiguration mAppBarConfiguration;
-    private ActivityMainBinding binding;
+    private AppBarConfiguration _appBarKonfiguration;
+    private ActivityMainBinding _binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        _binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(_binding.getRoot());
 
-        setSupportActionBar(binding.appBarMain.toolbar);
-        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null)
-                        .setAnchorView(R.id.fab).show();
-            }
-        });
-        DrawerLayout drawer = binding.drawerLayout;
-        NavigationView navigationView = binding.navView;
+        setSupportActionBar(_binding.appBarMain.toolbar);
+
+        DrawerLayout drawer = _binding.drawerLayout;
+        NavigationView navigationView = _binding.navView;
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+        _appBarKonfiguration =
+                new AppBarConfiguration.Builder(
+                        R.id.nav_home,
+                        R.id.nav_gallery,
+                        R.id.nav_slideshow
+                )
                 .setOpenableLayout(drawer)
                 .build();
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+        NavigationUI.setupActionBarWithNavController(this, navController, _appBarKonfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
+
+        NavController navController =
+                Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+
+        boolean navigateUpOk = NavigationUI.navigateUp(navController, _appBarKonfiguration);
+        return navigateUpOk || super.onSupportNavigateUp();
     }
+
 }
