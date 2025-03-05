@@ -1,7 +1,9 @@
 package de.mide.android.hifimockup;
 
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -20,8 +22,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import de.mide.android.hifimockup.databinding.ActivityMainBinding;
 
 
-
 public class MainActivity extends AppCompatActivity {
+
+    /** URL zur "Homepage" der App. */
+    final static String HOMEPAGE_URL =
+            "https://github.com/MDecker-MobileComputing/Android_HiFiMockupMitNavigationDrawer?tab=readme-ov-file#hifi-mockup";
 
     public static final String TAG4LOGGING = "HiFiMockup";
 
@@ -68,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * "Drei-Punkte-Menü" in der App-Leiste (rechts oben) erzeugen.
+     * "Drei-Punkte-Menü" (Overflow-Menü) in der App-Leiste (rechts oben) erzeugen.
      *
      * Das Event-Handling für die Einträge wird in der Methode
      * {@link #onOptionsItemSelected(MenuItem)} implementiert.
@@ -83,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Verarbeitung von Klicks in "Drei-Punkte-Menü".
+     * Verarbeitung von Klicks in "Drei-Punkte-Menü" (Overflow-Menü).
      *
      * @param item  Menu-Item, welches gerade ein Event ausgelöst hat.
      *
@@ -101,6 +106,11 @@ public class MainActivity extends AppCompatActivity {
             zeigeAppVersionDialog();
             return true;
 
+        } else if (selectedMenuId == R.id.action_webseite) {
+
+            oeffneWebseite();
+            return true;
+
         } else {
 
             return super.onOptionsItemSelected(item);
@@ -108,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * Event-Handler für Eintrag im Overflow-Menü:
      * Zeigt einen Dialog mit der aktuellen App-Version an.
      */
     private void zeigeAppVersionDialog() {
@@ -135,5 +146,20 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
+
+
+    /**
+     * Event-Handler für Eintrag im Overflow-Menü:
+     * Öffnet Webseite der App in einer auf dem Gerät installierten Browser-App.
+     */
+    private void oeffneWebseite() {
+
+        Uri uri = Uri.parse(HOMEPAGE_URL);
+
+        Intent intent = new Intent( Intent.ACTION_VIEW );
+        intent.setData( uri );
+
+        startActivity( intent );
+    }
 
 }

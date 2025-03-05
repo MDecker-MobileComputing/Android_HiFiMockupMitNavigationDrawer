@@ -9,4 +9,10 @@
         android:title="@string/action_ueber"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/action_webseite"
+        android:orderInCategory="100"
+        android:title="@string/action_webseite"
+        app:showAsAction="never" />
+
 </menu>
