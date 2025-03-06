@@ -10,11 +10,8 @@ import android.view.ViewGroup;
 
 import de.mide.android.hifimockup.R;
 
-public class BalkendiagrammFragment extends Fragment {
 
-    public BalkendiagrammFragment() {
-        // Required empty public constructor
-    }
+public class BalkendiagrammFragment extends Fragment {
 
     @Override
     public void onCreate( Bundle savedInstanceState ) {
