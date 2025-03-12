@@ -22,4 +22,8 @@
             android:title="@string/menu_kuchendiagramm" />
 
     </group>
+
+    <!-- IDs sollten dieselben wie in mobile_navigation.xml sein (Navigations-Ressource). -->
+
 </menu>
+

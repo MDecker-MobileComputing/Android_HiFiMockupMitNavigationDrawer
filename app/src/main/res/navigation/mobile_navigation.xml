@@ -24,4 +24,8 @@
         android:label="@string/menu_kuchendiagramm"
         tools:layout="@layout/fragment_kuchendiagramm" />
 
+    <!-- IDs sollten dieselben wie in activity_main_drawer.xml sein (Menü-Ressource). -->
+
 </navigation>
+
+
