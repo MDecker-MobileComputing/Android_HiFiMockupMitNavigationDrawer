@@ -26,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
     /** URL zur "Homepage" der App. */
     final static String HOMEPAGE_URL =
-            "https://github.com/MDecker-MobileComputing/Android_HiFiMockupMitNavigationDrawer?tab=readme-ov-file#hifi-mockup";
+            "https://github.com/MDecker-MobileComputing/Android_HiFiMockupMit" +
+                    "NavigationDrawer?tab=readme-ov-file#hifi-mockup";
 
     public static final String TAG4LOGGING = "HiFiMockup";
 
@@ -34,14 +35,14 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding _binding;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate( Bundle savedInstanceState ) {
 
         super.onCreate(savedInstanceState);
 
-        _binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(_binding.getRoot());
+        _binding = ActivityMainBinding.inflate( getLayoutInflater() );
+        setContentView( _binding.getRoot() );
 
-        setSupportActionBar(_binding.appBarMain.toolbar);
+        setSupportActionBar( _binding.appBarMain.toolbar );
 
         DrawerLayout drawer = _binding.drawerLayout;
 
@@ -57,18 +58,18 @@ public class MainActivity extends AppCompatActivity {
         NavigationView navigationView = _binding.navView;
 
         NavController navController =
-                Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, _appBarKonfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
+                Navigation.findNavController( this, R.id.nav_host_fragment_content_main );
+        NavigationUI.setupActionBarWithNavController(this, navController, _appBarKonfiguration );
+        NavigationUI.setupWithNavController( navigationView, navController );
     }
 
     @Override
     public boolean onSupportNavigateUp() {
 
         NavController navController =
-                Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+                Navigation.findNavController(this, R.id.nav_host_fragment_content_main );
 
-        boolean navigateUpOk = NavigationUI.navigateUp(navController, _appBarKonfiguration);
+        boolean navigateUpOk = NavigationUI.navigateUp( navController, _appBarKonfiguration );
         return navigateUpOk || super.onSupportNavigateUp();
     }
 
@@ -81,9 +82,9 @@ public class MainActivity extends AppCompatActivity {
      * @param menu  Menü-Objekt, zu dem die Einträge hinzugefügt werden sollen.
      */
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu( Menu menu ) {
 
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate( R.menu.main, menu );
         return true;
     }
 
@@ -97,23 +98,23 @@ public class MainActivity extends AppCompatActivity {
      *          der Wert der Super-Methode.
      */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected( MenuItem item ) {
 
         final int selectedMenuId = item.getItemId();
 
-        if (selectedMenuId == R.id.action_version) {
+        if ( selectedMenuId == R.id.action_version ) {
 
             zeigeAppVersionDialog();
             return true;
 
-        } else if (selectedMenuId == R.id.action_webseite) {
+        } else if ( selectedMenuId == R.id.action_webseite ) {
 
             oeffneWebseite();
             return true;
 
         } else {
 
-            return super.onOptionsItemSelected(item);
+            return super.onOptionsItemSelected( item );
         }
     }
 
@@ -127,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
         try {
 
-            PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            PackageInfo packageInfo = getPackageManager().getPackageInfo( getPackageName(), 0 );
             versionnameAusPackageInfo = packageInfo.versionName;
 
         } catch ( PackageManager.NameNotFoundException e ) {
@@ -137,15 +138,14 @@ public class MainActivity extends AppCompatActivity {
 
         String nachricht = "Version der App: " + versionnameAusPackageInfo;
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder( this );
         builder.setTitle("Über diese App");
         builder.setMessage(nachricht);
-        builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
+        builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss() );
 
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-
 
 
     /**
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void oeffneWebseite() {
 
-        Uri uri = Uri.parse(HOMEPAGE_URL);
+        Uri uri = Uri.parse( HOMEPAGE_URL );
 
         Intent intent = new Intent( Intent.ACTION_VIEW );
         intent.setData( uri );
